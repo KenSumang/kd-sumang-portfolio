@@ -29,6 +29,7 @@ const projects = await getCollection('projects');
               link={project.data.link}
               slug={project.id}
               status={project.data.status}
+              thumbnail={project.data.thumbnail}
             />
           ))}
         </div>

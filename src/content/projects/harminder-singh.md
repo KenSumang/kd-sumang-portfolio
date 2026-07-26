@@ -1,8 +1,8 @@
 ---
-title: "Harminder Singh & Associates"
+title: "Harminder Singh"
 description: "A bespoke WordPress website for an Australian integrated wealth strategist, combining accounting, legal, and property expertise into a single client-facing platform."
 tags: ["WordPress", "Tailwind CSS", "PHP", "JavaScript", "ACF"]
-thumbnail: "/images/harminder-singh.png"
+thumbnail: "./harminder-singh.png"
 status: "in-progress"
 ---
 

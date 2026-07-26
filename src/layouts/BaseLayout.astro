@@ -9,6 +9,8 @@ import '@fontsource/inter/500.css';
 import '@fontsource/inter/600.css';
 import '../styles/global.css';
 
+
+
 interface Props {
   title: string;
   description?: string;
@@ -45,3 +47,27 @@ const {
     </script>
   </body>
 </html>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach((el) => io.observe(el));
+
+  // auto-hide scrollbar
+  const root = document.documentElement;
+  let scrollTimeout: ReturnType<typeof setTimeout>;
+  window.addEventListener('scroll', () => {
+    root.classList.add('is-scrolling');
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      root.classList.remove('is-scrolling');
+    }, 800);
+  }, { passive: true });
+</script>
