@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  name: string;
+  issuer: string;
+  date: string; // "YYYY-MM"
+  link?: string;
+  logo?: ImageMetadata;
+}
+
+const { name, issuer, date, link, logo } = Astro.props;
+
+const [year, month] = date.split('-');
+const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const dateLabel = month ? `${monthNames[parseInt(month, 10) - 1]} ${year}` : year;
+---
+
+<div class="certification-card">
+  <div class="certification-card__top">
+    <div class="certification-card__logo">
+      {logo ? (
+        <Image src={logo} alt={`${issuer} logo`} width={40} height={40} />
+      ) : (
+        <span class="certification-card__logo-fallback">{issuer.charAt(0)}</span>
+      )}
+    </div>
+    <span class="certification-card__date">{dateLabel}</span>
+  </div>
+
+  <h3 class="certification-card__name">{name}</h3>
+  <span class="certification-card__issuer">{issuer}</span>
+
+  {link && (
+    <a href={link} target="_blank" rel="noopener noreferrer" class="certification-card__link">
+      Verify credential →
+    </a>
+  )}
+</div>

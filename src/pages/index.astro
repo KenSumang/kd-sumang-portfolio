@@ -7,9 +7,20 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Terminal from '../components/Terminal.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import ExperienceRow from '../components/ExperienceRow.astro';
+import CertificationCard from '../components/CertificationCard.astro';
+
 
 const allProjects = await getCollection('projects');
-const featured = allProjects.slice(0, 3);
+const featuredProjects = allProjects.slice(0, 3);
+
+const allExperience = (await getCollection('experience'))
+  .sort((a, b) => b.data.startDate.localeCompare(a.data.startDate));
+const featuredExperience = allExperience.slice(0, 3);
+
+const allCertifications = (await getCollection('certifications'))
+  .sort((a, b) => b.data.date.localeCompare(a.data.date));
+const featuredCertifications = allCertifications.slice(0, 3);
 ---
 
 <BaseLayout title="Home">
@@ -71,7 +82,7 @@ const featured = allProjects.slice(0, 3);
         </div>
 
         <div class="projects__list">
-          {featured.map((project) => (
+          {featuredProjects.map((project) => (
             <ProjectCard
               title={project.data.title}
               description={project.data.description}
@@ -86,6 +97,57 @@ const featured = allProjects.slice(0, 3);
 
         <div class="projects__more">
           <a href="/projects" class="btn btn--ghost">See all projects</a>
+        </div>
+      </div>
+    </section>
+    
+    <!-- EXPERIENCE PREVIEW -->
+    <section id="experience">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Experience</h2>
+          <p>Roles and training that shaped how I build.</p>
+        </div>
+
+        <div class="experience-list">
+          {featuredExperience.map((exp) => (
+            <ExperienceRow
+              role={exp.data.role}
+              company={exp.data.company}
+              startDate={exp.data.startDate}
+              endDate={exp.data.endDate}
+            />
+          ))}
+        </div>
+
+        <div class="projects__more">
+          <a href="/experience" class="btn btn--ghost">See full history</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATION PREVIEW -->
+    <section id="certifications">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Certifications</h2>
+          <p>Credentials that back up the skills above.</p>
+        </div>
+    
+        <div class="certification-grid">
+          {featuredCertifications.map((cert) => (
+            <CertificationCard
+              name={cert.data.name}
+              issuer={cert.data.issuer}
+              date={cert.data.date}
+              link={cert.data.link}
+              logo={cert.data.logo}
+            />
+          ))}
+        </div>
+    
+        <div class="projects__more">
+          <a href="/certifications" class="btn btn--ghost">See all certifications</a>
         </div>
       </div>
     </section>

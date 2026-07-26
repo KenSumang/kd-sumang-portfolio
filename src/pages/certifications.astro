@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CertificationCard from '../components/CertificationCard.astro';
+
+const certifications = (await getCollection('certifications'))
+  .sort((a, b) => b.data.date.localeCompare(a.data.date));
+---
+
+<BaseLayout title="Certifications" description="Certifications earned by Kenaniah Daniel Sumang.">
+  <Header />
+  <main>
+    <section class="hero" style="padding-bottom: 40px;">
+      <div class="wrap">
+        <p class="eyebrow">certifications <span class="slash">/</span> credentials earned</p>
+        <h1 class="hero__title" style="font-size: clamp(40px, 7vw, 76px);">What I've <em>earned.</em></h1>
+      </div>
+    </section>
+
+    <section style="padding-top: 0;">
+      <div class="wrap">
+        <div class="certification-grid">
+          {certifications.map((cert) => (
+            <CertificationCard
+                name={cert.data.name}
+                issuer={cert.data.issuer}
+                date={cert.data.date}
+                link={cert.data.link}
+                logo={cert.data.logo}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

@@ -13,4 +13,27 @@ const projects = defineCollection({
   }),
 });
 
-export const collections = { projects };
+const experience = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/experience' }),
+  schema: z.object({
+    role: z.string(),
+    company: z.string(),
+    startDate: z.string(),
+    endDate: z.string().optional(),
+    location: z.string().optional(),
+    highlights: z.array(z.string()),
+  }),
+});
+
+const certifications = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/certifications' }),
+  schema: ({ image }) => z.object({
+    name: z.string(),
+    issuer: z.string(),
+    date: z.string(),
+    link: z.string().url().optional(),
+    logo: image().optional(),
+  }),
+});
+
+export const collections = { projects, experience, certifications };

@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ExperienceRow from '../components/ExperienceRow.astro';
+
+const experience = (await getCollection('experience'))
+  .sort((a, b) => b.data.startDate.localeCompare(a.data.startDate));
+---
+
+<BaseLayout title="Experience" description="Work experience and training — Kenaniah Daniel Sumang.">
+  <Header />
+  <main>
+    <section class="hero" style="padding-bottom: 40px;">
+      <div class="wrap">
+        <p class="eyebrow">experience <span class="slash">/</span> roles &amp; training</p>
+        <h1 class="hero__title" style="font-size: clamp(40px, 7vw, 76px);">Where I've <em>worked.</em></h1>
+      </div>
+    </section>
+
+    <section style="padding-top: 0;">
+      <div class="wrap">
+        <div class="experience-list">
+          {experience.map((exp) => (
+            <ExperienceRow
+              role={exp.data.role}
+              company={exp.data.company}
+              startDate={exp.data.startDate}
+              endDate={exp.data.endDate}
+              location={exp.data.location}
+              highlights={exp.data.highlights}
+            />
+          ))}
+        </div>
+
+        <div class="hero__actions" style="margin-top: 48px;">
+          <a href="/Kenaniah-Daniel-Sumang-Resume.pdf" class="btn btn--solid" download>Download résumé</a>
+          <a href="/contact" class="btn btn--ghost">Get in touch</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

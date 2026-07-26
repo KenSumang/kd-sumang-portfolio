@@ -1,0 +1,31 @@
+---
+interface Props {
+  role: string;
+  company: string;
+  startDate: string; // "YYYY-MM"
+  endDate?: string;  // omit for "ongoing/present"
+  location?: string;
+  highlights?: string[]; // only rendered when provided — homepage preview omits these
+}
+
+const { role, company, startDate, endDate, location, highlights } = Astro.props;
+
+const startYear = startDate.split('-')[0];
+const endYear = endDate ? endDate.split('-')[0] : null;
+const yearLabel = endYear && endYear !== startYear ? `${startYear}–${endYear}` : startYear;
+const companyLabel = location ? `${company} · ${location}` : company;
+---
+
+<div class="experience-row">
+  <div class="experience-row__top">
+    <span class="experience-row__year">{yearLabel}</span>
+    <span class="experience-row__role">{role}</span>
+    <span class="experience-row__company">{companyLabel}</span>
+  </div>
+
+  {highlights && highlights.length > 0 && (
+    <ul class="experience-row__highlights">
+      {highlights.map((h) => <li>{h}</li>)}
+    </ul>
+  )}
+</div>
