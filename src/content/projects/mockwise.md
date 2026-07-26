@@ -2,7 +2,7 @@
 title: "MockWise"
 description: "An AI-driven mock interview simulation platform designed to improve users' communication skills, particularly through grammar-focused feedback."
 tags: ["AI", "Full-stack", "Python"]
-thumbnail: ""
+thumbnail: "./mockwise.png"
 status: "in-progress"
 ---
 
