@@ -1,0 +1,19 @@
+---
+const navLinks = [
+  { href: "/about", label: "about" },
+  { href: "/projects", label: "projects" },
+  { href: "/contact", label: "contact" },
+];
+---
+
+<header>
+  <div class="wrap nav">
+    <a href="/" class="nav__mark">kenaniah<span>.dev</span></a>
+    <nav class="nav__links">
+      {navLinks.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+    <a href="/contact" class="nav__cta">Get in touch</a>
+  </div>
+</header>

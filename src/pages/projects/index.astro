@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+
+const projects = await getCollection('projects');
+---
+
+<BaseLayout title="Projects" description="Recent projects by Kenaniah Daniel Sumang.">
+  <Header />
+  <main>
+    <section class="hero" style="padding-bottom: 40px;">
+      <div class="wrap">
+        <p class="eyebrow">projects <span class="slash">/</span> everything I've shipped</p>
+        <h1 class="hero__title" style="font-size: clamp(40px, 7vw, 76px);">Selected <em>work.</em></h1>
+      </div>
+    </section>
+
+    <section style="padding-top: 0;">
+      <div class="wrap">
+        <div class="projects__list">
+          {projects.map((project) => (
+            <ProjectCard
+              title={project.data.title}
+              description={project.data.description}
+              tags={project.data.tags}
+              link={project.data.link}
+              slug={project.id}
+              status={project.data.status}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

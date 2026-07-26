@@ -1,17 +1,105 @@
 ---
+import { Image } from 'astro:assets';
+import profileImage from '../assets/images/KSumangProfile.png'
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Terminal from '../components/Terminal.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 
+const allProjects = await getCollection('projects');
+const featured = allProjects.slice(0, 3);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Home">
+  <Header />
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero__grid">
+        <div>
+          <p class="eyebrow">software developer <span class="slash">/</span> based in the Philippines</p>
+          <h1 class="hero__title">Kenaniah Daniel<br /><em>Sumang</em></h1>
+          <p class="hero__lede">
+            I build functional, efficient digital products across the stack —
+            from clean Python and Java backends to responsive, detail-oriented
+            interfaces on the front end.
+          </p>
+          <div class="hero__actions">
+            <a href="/projects" class="btn btn--solid">View projects</a>
+            <a href="/about" class="btn btn--ghost">About me</a>
+          </div>
+        </div>
+        <Terminal />
+      </div>
+    </section>
+
+    <!-- ABOUT PREVIEW -->
+    <section id="about">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>About</h2>
+          <p>The short version — who I am and how I like to build.</p>
+        </div>
+
+        <div class="about__grid">
+          <div class="about__portrait reveal">
+            <Image src={profileImage} alt="Kenaniah Daniel Sumang" />
+          </div>
+
+          <div class="about__body">
+            <p class="eyebrow">01 <span class="slash">/</span> background</p>
+            <p>
+              I'm a <strong>Software Developer</strong> skilled in Python, Java, and
+              full-stack web development. I like building things that are
+              functional, efficient, and genuinely nice to use — that balance
+              is what I optimize for on every project.
+            </p>
+            <a href="/about" class="btn btn--ghost">Read more</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS PREVIEW -->
+    <section id="projects">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Projects</h2>
+          <p>A few recent builds that reflect how I like to work.</p>
+        </div>
+
+        <div class="projects__list">
+          {featured.map((project) => (
+            <ProjectCard
+              title={project.data.title}
+              description={project.data.description}
+              tags={project.data.tags}
+              link={project.data.link}
+              slug={project.id}
+              status={project.data.status}
+            />
+          ))}
+        </div>
+
+        <div class="projects__more">
+          <a href="/projects" class="btn btn--ghost">See all projects</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section>
+      <div class="wrap">
+        <div class="cta reveal">
+          <p class="eyebrow" style="justify-content:center; color:#B8B6AC;">let's build something <span class="slash">/</span> together</p>
+          <h2>Have a project in mind?</h2>
+          <p>I'm currently open to new opportunities and collaborations.</p>
+          <a href="/contact" class="btn btn--solid">Start a conversation</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

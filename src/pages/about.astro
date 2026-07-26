@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets';
+import profileImage from '../assets/images/KSumangProfile.png'
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="About" description="A closer look at who Kenaniah Daniel Sumang is and how he builds software.">
+  <Header />
+  <main>
+    <section class="hero" style="padding-bottom: 40px;">
+      <div class="wrap">
+        <p class="eyebrow">about <span class="slash">/</span> the long version</p>
+        <h1 class="hero__title" style="font-size: clamp(40px, 7vw, 76px);">A bit more<br /><em>about me.</em></h1>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap about__grid">
+        <div class="about__portrait reveal">
+          <Image src={profileImage} alt="Kenaniah Daniel Sumang" />
+        </div>
+
+        <div class="about__body">
+          <p>
+            I'm <strong>Kenaniah Daniel Sumang</strong>, a Software Developer
+            skilled in Python, Java, and full-stack web development. I enjoy
+            creating functional, efficient, and visually engaging digital
+            solutions that deliver great user experiences.
+          </p>
+          <p>
+            Through various web and software projects, I've honed my skills
+            in responsive design, clean coding, and problem-solving. My
+            experience with HTML, CSS, JavaScript, Tailwind CSS, and SASS has
+            strengthened my attention to detail and commitment to writing
+            maintainable code.
+          </p>
+          <p>
+            I'm continuously expanding my expertise in mobile and game
+            development, driven by a love for innovation and continuous
+            learning.
+          </p>
+
+          <h2>What I work with</h2>
+          <div class="stack">
+            <div class="stack__row"><span>Python</span><span>lang</span></div>
+            <div class="stack__row"><span>Java</span><span>lang</span></div>
+            <div class="stack__row"><span>JavaScript</span><span>lang</span></div>
+            <div class="stack__row"><span>HTML / CSS</span><span>core</span></div>
+            <div class="stack__row"><span>Tailwind CSS</span><span>tool</span></div>
+            <div class="stack__row"><span>SASS</span><span>tool</span></div>
+          </div>
+
+          <div class="hero__actions" style="margin-top: 40px;">
+            <a href="/projects" class="btn btn--solid">View my projects</a>
+            <a href="/contact" class="btn btn--ghost">Get in touch</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout title="Contact" description="Get in touch with Kenaniah Daniel Sumang.">
+  <Header />
+  <main>
+    <section class="hero">
+      <div class="wrap" style="max-width: 640px;">
+        <p class="eyebrow">get in touch</p>
+        <h1 class="hero__title" style="font-size: clamp(40px, 7vw, 76px);">Let's talk.</h1>
+        <p class="hero__lede">
+          Open to freelance work, full-time roles, and interesting
+          collaborations. Reach out through whichever channel is easiest.
+        </p>
+        <div class="hero__actions">
+          <a href="mailto:hello@kensumang.dev" class="btn btn--solid">Email me</a>
+          <a href="https://github.com/kensumang" target="_blank" rel="noopener noreferrer" class="btn btn--ghost">GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

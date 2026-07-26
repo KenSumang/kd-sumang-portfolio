@@ -1,0 +1,39 @@
+---
+interface Line {
+  cmd: string;
+  out?: string;
+}
+
+interface Props {
+  windowTitle?: string;
+  lines?: Line[];
+  showCursor?: boolean;
+}
+
+const {
+  windowTitle = "~/kenaniah — zsh",
+  lines = [
+    { cmd: "whoami", out: "software & web developer, building toward AI engineering" },
+    { cmd: "cat stack.txt", out: "Python · Java · JavaScript · Tailwind CSS · SASS" },
+  ],
+  showCursor = true,
+} = Astro.props;
+---
+
+<div class="term reveal">
+  <div class="term__bar">
+    <span class="term__dot"></span><span class="term__dot"></span><span class="term__dot"></span>
+    <span class="term__title">{windowTitle}</span>
+  </div>
+  <div class="term__body">
+    {lines.map((line) => (
+      <>
+        <div><span class="term__prompt">$</span> <span class="term__cmd">{line.cmd}</span></div>
+        {line.out && <div class="term__out">{line.out}</div>}
+      </>
+    ))}
+    {showCursor && (
+      <div><span class="term__prompt">$</span> <span class="term__cmd">status</span><span class="cursor"></span></div>
+    )}
+  </div>
+</div>

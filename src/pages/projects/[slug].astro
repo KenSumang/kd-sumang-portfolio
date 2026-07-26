@@ -1,0 +1,57 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+---
+
+<BaseLayout title={project.data.title} description={project.data.description}>
+  <Header />
+  <main>
+    <section>
+      <div class="wrap" style="max-width: 760px;">
+        <p class="eyebrow">project <span class="slash">/</span> {project.data.status}</p>
+        <h1 class="hero__title" style="font-size: clamp(36px, 6vw, 64px); margin-bottom: 16px;">
+          {project.data.title}
+        </h1>
+        <p class="hero__lede" style="margin-bottom: 32px;">{project.data.description}</p>
+
+        <div class="project__tags" style="margin-bottom: 40px;">
+          {project.data.tags.map((tag) => <span>{tag}</span>)}
+        </div>
+
+        {project.data.link && (
+          <a
+            href={project.data.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn--solid"
+            style="margin-bottom: 48px;"
+          >
+            Visit live site →
+          </a>
+        )}
+
+        <div class="about__body">
+          <Content />
+        </div>
+
+        <div style="margin-top: 48px;">
+          <a href="/projects" class="btn btn--ghost">← Back to all projects</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>

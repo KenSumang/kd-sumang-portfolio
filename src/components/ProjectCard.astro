@@ -1,0 +1,33 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  tags: string[];
+  slug: string;
+  link?: string;
+  status?: "live" | "in-progress" | "archived";
+}
+
+const { title, description, tags, slug, link, status = "live" } = Astro.props;
+
+const href = link ?? `/projects/${slug}`;
+const isExternal = Boolean(link);
+const linkLabel = status === "in-progress" ? "Coming soon" : "View site →";
+---
+
+<a
+  class={`project ${status === "in-progress" ? "project--soon" : ""}`}
+  href={href}
+  target={isExternal ? "_blank" : undefined}
+  rel={isExternal ? "noopener noreferrer" : undefined}
+>
+  <div class="project__thumb">image — {title.toLowerCase()}</div>
+  <div class="project__main">
+    <h3>{title}</h3>
+    <p>{description}</p>
+    <div class="project__tags">
+      {tags.map((tag) => <span>{tag}</span>)}
+    </div>
+  </div>
+  <span class="project__link">{linkLabel}</span>
+</a>
